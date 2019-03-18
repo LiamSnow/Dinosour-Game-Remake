@@ -89,13 +89,15 @@ var CactusHandler = new class cactus_handler_class {
             }
         });
 
-        if (Math.random() > 0.98) {
+        if (this.spawnTimer < 0) {
+            this.resetSpawnTimer();
             this.spawn();
         }
+        else this.spawnTimer--;
     }
 
     spawn() {
-        var x = Player.x + 800 + (Math.random() * 400);
+        var x = Player.x + 800;
         var type = Math.round(Math.random() * 6);
         type = 6;
         var content = this.types[Object.keys(this.types)[type]];
@@ -112,5 +114,10 @@ var CactusHandler = new class cactus_handler_class {
 
     reset() {
         this.cacti = [];
+        this.resetSpawnTimer();
+    }
+
+    resetSpawnTimer() {
+        this.spawnTimer = 20 + (Math.random() * 60);
     }
 }
