@@ -25,8 +25,8 @@ var Player = new class player_class {
 
         var y = 150;
         if (this.jumping) {
-            y += -120 * (-4 * (this.jumpIndex - 0.5) * (this.jumpIndex - 0.5) + 1);
-            this.jumpIndex += (this.crouching ? 0.045 : 0.03);
+            y += -100 * (-4 * (this.jumpIndex - 0.5) * (this.jumpIndex - 0.5) + 1);
+            this.jumpIndex += (this.crouching ? 0.045 : 0.035) + (score * 0.0005);
             if (this.jumpIndex >= 1)
                 this.jumping = false;
         }
@@ -48,7 +48,7 @@ var Player = new class player_class {
 
         this.lastY = y;
         this.lastX = this.x;
-        this.x += 6;
+        this.x += 6 + (score * 0.2);
     }
 
     jump() {

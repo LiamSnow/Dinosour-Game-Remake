@@ -15,6 +15,7 @@ class CactusObject {
             this.yOff = yo == 0 ? -5 : (yo == 1 ? 30 : 45);
         }
         this.draw.lastY = (190 - this.height) - this.yOff;
+        this.lastHasPassed = false;
     }
 
     draw() {
@@ -33,6 +34,20 @@ class CactusObject {
         // Display.context.rect(this.lastX, y, this.width, this.height);
         // Display.context.stroke();
         this.lastY = y;
+    }
+
+    hasPassed(box1) {
+        var passed = Collision.isColliding(box1, {
+            x: this.lastX, 
+            y: this.lastY-10000,
+            width: this.width, 
+            height: this.height+10000
+        });
+
+        if (this.lastHasPassed == false) {
+            this.lastHasPassed = passed;
+            return passed;
+        }
     }
 
     isColliding(box1) {
@@ -82,24 +97,28 @@ var CactusHandler = new class cactus_handler_class {
     }
 
     update() {
-        this.cacti.forEach(function (cactus) {
-            cactus.draw();
-            if (cactus.isColliding(Player.getHitbox())) {
-                reset();
+        if (inGame) {
+            this.cacti.forEach(function (cactus) {
+                cactus.draw();
+                if (cactus.isColliding(Player.getHitbox())) {
+                    reset();
+                }
+                if (cactus.hasPassed(Player.getHitbox())) {
+                    score += 1;
+                }
+            });
+    
+            if (this.spawnTimer < 0) {
+                this.resetSpawnTimer();
+                this.spawn();
             }
-        });
-
-        if (this.spawnTimer < 0) {
-            this.resetSpawnTimer();
-            this.spawn();
+            else this.spawnTimer--;
         }
-        else this.spawnTimer--;
     }
 
     spawn() {
         var x = Player.x + 800;
         var type = Math.round(Math.random() * 6);
-        type = 6;
         var content = this.types[Object.keys(this.types)[type]];
         this.cacti.push(
             new CactusObject(
@@ -118,6 +137,6 @@ var CactusHandler = new class cactus_handler_class {
     }
 
     resetSpawnTimer() {
-        this.spawnTimer = 20 + (Math.random() * 60);
+        this.spawnTimer = 30 + (Math.random() * 40);
     }
 }

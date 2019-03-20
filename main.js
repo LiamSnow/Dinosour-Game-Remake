@@ -1,7 +1,7 @@
 // Main.js
 
 var inGame = true;
-var score = 0;
+var score = 10;
 
 function loop() {
     //Display.context.clearRect(0, 0, Display.width, Display.height);
@@ -28,6 +28,7 @@ function reset() {
 function start() {
     Display.context.clearRect(0, 0, 10000, 10000);
     inGame = true;
+    score = 0;
 
     CactusHandler.reset();
     Player.reset();
