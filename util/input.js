@@ -9,7 +9,7 @@ function keyUp(e) {
     }
 }
 function keyDown(e) {
-    if (e.code == "Space") {
+    if (e.code == "Space" || e.code == "KeyW" || e.code == "ArrowUp") {
         if (inGame) {
             Player.jump();
         }

@@ -1,7 +1,7 @@
 // Main.js
 
 var inGame = true;
-var score = 10;
+var score = 20;
 
 function loop() {
     //Display.context.clearRect(0, 0, Display.width, Display.height);
@@ -10,6 +10,7 @@ function loop() {
         Ground.update();
         CactusHandler.update();
         Player.update();
+        Scoreboard.update();
     }
 }
 setInterval(loop, 20);

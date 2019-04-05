@@ -26,7 +26,7 @@ var Player = new class player_class {
         var y = 150;
         if (this.jumping) {
             y += -100 * (-4 * (this.jumpIndex - 0.5) * (this.jumpIndex - 0.5) + 1);
-            this.jumpIndex += (this.crouching ? 0.045 : 0.035) + (score * 0.0005);
+            this.jumpIndex += (this.crouching ? 0.045 : 0.035) + (score * 0.0003);
             if (this.jumpIndex >= 1)
                 this.jumping = false;
         }
